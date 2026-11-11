@@ -1,0 +1,71 @@
+<div class="app-shell">
+  <!-- Top Navigation & Control Bar -->
+  <header class="topbar">
+    <div class="brand-area" routerLink="/">
+      <div class="brand-logo">⚡</div>
+      <div class="brand-titles">
+        <h1>{{ i18n.t('brandTitle') }}</h1>
+        <span>{{ i18n.t('brandSubtitle') }}</span>
+      </div>
+    </div>
+
+    @if (!theme.kioskMode()) {
+      <nav class="main-nav">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          🛠️ {{ i18n.t('navBook') }}
+        </a>
+        <a routerLink="/lookup" routerLinkActive="active">
+          🔍 {{ i18n.t('navLookup') }}
+        </a>
+        <a routerLink="/admin" routerLinkActive="active">
+          🔐 {{ i18n.t('navAdmin') }}
+        </a>
+      </nav>
+    }
+
+    <div class="toolbar-controls">
+      <!-- Brand Theme Palette Swatcher (Instant Client Rebranding) -->
+      <div class="palette-picker" [title]="i18n.t('themePalette')">
+        @for (p of theme.palettes; track p.id) {
+          <button
+            type="button"
+            class="swatch-dot"
+            [class.active]="theme.palette() === p.id"
+            [style.background]="p.previewColor"
+            [title]="i18n.isRtl() ? p.labelAr : p.labelEn"
+            (click)="theme.setPalette(p.id)"
+          ></button>
+        }
+      </div>
+
+      <!-- Light / Dark Mode Toggle -->
+      <button
+        type="button"
+        class="ctrl-btn"
+        (click)="theme.toggleColorMode()"
+        [title]="theme.colorMode() === 'dark' ? 'Light Mode' : 'Dark Mode'"
+      >
+        {{ theme.colorMode() === 'dark' ? '☀️' : '🌙' }}
+      </button>
+
+      <!-- Language Toggle (AR / EN) -->
+      <button type="button" class="ctrl-btn lang-btn" (click)="i18n.toggleLang()">
+        {{ i18n.lang() === 'ar' ? 'EN' : 'عربي' }}
+      </button>
+
+      <!-- Touch Kiosk Mode Toggle -->
+      <button
+        type="button"
+        class="ctrl-btn kiosk-btn"
+        [class.kiosk-on]="theme.kioskMode()"
+        (click)="theme.toggleKioskMode()"
+      >
+        🖥️ {{ theme.kioskMode() ? i18n.t('kioskActive') : i18n.t('kioskMode') }}
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <router-outlet />
+  </main>
+</div>

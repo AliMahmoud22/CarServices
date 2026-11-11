@@ -1,0 +1,12 @@
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Domain\bin\Debug\net10.0\CarServices.Domain.deps.json
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Domain\bin\Debug\net10.0\CarServices.Domain.dll
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Domain\bin\Debug\net10.0\CarServices.Domain.pdb
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Domain\obj\Debug\net10.0\CarServices.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Domain\obj\Debug\net10.0\CarServices.Domain.AssemblyInfoInputs.cache
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Domain\obj\Debug\net10.0\CarServices.Domain.AssemblyInfo.cs
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Domain\obj\Debug\net10.0\CarServices.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Domain\obj\Debug\net10.0\CarServices.Domain.dll
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Domain\obj\Debug\net10.0\refint\CarServices.Domain.dll
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Domain\obj\Debug\net10.0\CarServices.Domain.pdb
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Domain\obj\Debug\net10.0\ref\CarServices.Domain.dll
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Domain\obj\Debug\net10.0\CarServi.EEB9821D.Up2Date

@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Ali\\source\\repos\\CarServices\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{34655F7B-566B-2311-2EA0-64ECEBE2046F}|src\\CarServices.Application\\CarServices.Application.csproj|c:\\users\\ali\\source\\repos\\carservices\\src\\carservices.application\\bookings\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34655F7B-566B-2311-2EA0-64ECEBE2046F}|src\\CarServices.Application\\CarServices.Application.csproj|solutionrelative:src\\carservices.application\\bookings\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34655F7B-566B-2311-2EA0-64ECEBE2046F}|src\\CarServices.Application\\CarServices.Application.csproj|c:\\users\\ali\\source\\repos\\carservices\\src\\carservices.application\\common\\time\\egypttime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34655F7B-566B-2311-2EA0-64ECEBE2046F}|src\\CarServices.Application\\CarServices.Application.csproj|solutionrelative:src\\carservices.application\\common\\time\\egypttime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EgyptTime.cs",
+              "DocumentMoniker": "C:\\Users\\Ali\\source\\repos\\CarServices\\src\\CarServices.Application\\Common\\Time\\EgyptTime.cs",
+              "RelativeDocumentMoniker": "src\\CarServices.Application\\Common\\Time\\EgyptTime.cs",
+              "ToolTip": "C:\\Users\\Ali\\source\\repos\\CarServices\\src\\CarServices.Application\\Common\\Time\\EgyptTime.cs",
+              "RelativeToolTip": "src\\CarServices.Application\\Common\\Time\\EgyptTime.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-06T11:22:46.975Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BookingService.cs",
+              "DocumentMoniker": "C:\\Users\\Ali\\source\\repos\\CarServices\\src\\CarServices.Application\\Bookings\\BookingService.cs",
+              "RelativeDocumentMoniker": "src\\CarServices.Application\\Bookings\\BookingService.cs",
+              "ToolTip": "C:\\Users\\Ali\\source\\repos\\CarServices\\src\\CarServices.Application\\Bookings\\BookingService.cs",
+              "RelativeToolTip": "src\\CarServices.Application\\Bookings\\BookingService.cs",
+              "ViewState": "AgIAABsBAAAAAAAAAAAwwCQBAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-06T11:22:02.709Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

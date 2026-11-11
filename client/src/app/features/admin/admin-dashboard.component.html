@@ -1,0 +1,397 @@
+<div class="admin-wrapper">
+  @if (!api.adminToken()) {
+    <!-- Login Card -->
+    <section class="login-card">
+      <h2>🔐 {{ i18n.t('adminLoginTitle') }}</h2>
+      @if (loginError()) {
+        <div class="alert-banner error">{{ loginError() }}</div>
+      }
+      <div class="form-group">
+        <label>{{ i18n.t('username') }}</label>
+        <input type="text" class="touch-input" [ngModel]="username()" (ngModelChange)="username.set($event)" />
+      </div>
+      <div class="form-group">
+        <label>{{ i18n.t('password') }}</label>
+        <input
+          type="password"
+          class="touch-input"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          (keyup.enter)="login()"
+        />
+      </div>
+      <button type="button" class="btn-primary btn-lg w-100" (click)="login()">
+        {{ i18n.t('loginBtn') }}
+      </button>
+    </section>
+  } @else {
+    <!-- Admin Dashboard -->
+    <div class="admin-header">
+      <div class="admin-tabs">
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="activeTab() === 'bookings'"
+          (click)="activeTab.set('bookings')"
+        >
+          📋 {{ i18n.t('tabBookings') }}
+        </button>
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="activeTab() === 'catalog'"
+          (click)="activeTab.set('catalog')"
+        >
+          🚗 {{ i18n.t('tabCatalog') }}
+        </button>
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="activeTab() === 'services'"
+          (click)="activeTab.set('services')"
+        >
+          💰 {{ i18n.t('tabServices') }}
+        </button>
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="activeTab() === 'settings'"
+          (click)="activeTab.set('settings')"
+        >
+          ⚙️ {{ i18n.t('tabSettings') }}
+        </button>
+      </div>
+
+      <button type="button" class="btn-secondary" (click)="logout()">
+        🚪 {{ i18n.t('logoutBtn') }}
+      </button>
+    </div>
+
+    @if (feedbackMessage()) {
+      <div class="alert-banner success">✅ {{ feedbackMessage() }}</div>
+    }
+
+    <!-- KPI Cards -->
+    @if (summary(); as s) {
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-label">{{ i18n.t('todayBookings') }}</span>
+          <strong class="kpi-val">{{ s.todayBookingsCount }}</strong>
+        </div>
+        <div class="kpi-card warning">
+          <span class="kpi-label">{{ i18n.t('pendingBookings') }}</span>
+          <strong class="kpi-val">{{ s.pendingBookingsCount }}</strong>
+        </div>
+        <div class="kpi-card info">
+          <span class="kpi-label">{{ i18n.t('confirmedBookings') }}</span>
+          <strong class="kpi-val">{{ s.confirmedBookingsCount }}</strong>
+        </div>
+        <div class="kpi-card accent">
+          <span class="kpi-label">{{ i18n.t('completedRevenue') }}</span>
+          <strong class="kpi-val">{{ s.completedRevenueTotal }} {{ i18n.t('currency') }}</strong>
+        </div>
+      </div>
+    }
+
+    <!-- TAB 1: BOOKINGS -->
+    @if (activeTab() === 'bookings') {
+      <section class="panel-card">
+        <div class="filter-bar">
+          <input
+            type="text"
+            class="touch-input"
+            placeholder="بحث برقم الحجز أو الاسم أو الموبايل..."
+            [ngModel]="searchFilter()"
+            (ngModelChange)="searchFilter.set($event)"
+            (keyup.enter)="loadDashboardAndBookings()"
+          />
+          <button type="button" class="btn-primary" (click)="loadDashboardAndBookings()">
+            🔍 بحث
+          </button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>رقم الحجز</th>
+                <th>العميل</th>
+                <th>السيارة</th>
+                <th>الموعد</th>
+                <th>الخدمات</th>
+                <th>الإجمالي</th>
+                <th>الحالة</th>
+                <th>إجراء</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (b of bookings(); track b.id) {
+                <tr>
+                  <td><strong dir="ltr">{{ b.reference }}</strong></td>
+                  <td>{{ b.customerName }}<br /><small dir="ltr">{{ b.customerPhone }}</small></td>
+                  <td>{{ b.brandName }} - {{ b.modelName }}</td>
+                  <td>{{ b.date }}<br /><small>{{ b.startTime.slice(0,5) }}</small></td>
+                  <td>
+                    @for (it of b.items; track it.serviceId) {
+                      <span class="mini-tag">{{ it.serviceName }}</span>
+                    }
+                  </td>
+                  <td><strong>{{ b.totalPrice }} {{ i18n.t('currency') }}</strong></td>
+                  <td>
+                    <span class="status-badge" [attr.data-status]="b.status">{{ b.statusName }}</span>
+                  </td>
+                  <td class="actions-cell">
+                    <button type="button" class="btn-sm confirm" (click)="updateBookingStatus(b.id, 1)">تأكيد</button>
+                    <button type="button" class="btn-sm complete" (click)="updateBookingStatus(b.id, 2)">إتمام</button>
+                    <button type="button" class="btn-sm cancel" (click)="updateBookingStatus(b.id, 3)">إلغاء</button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
+    <!-- TAB 2: CATALOG (BRANDS & MODELS) -->
+    @if (activeTab() === 'catalog') {
+      <div class="two-col-grid">
+        <section class="panel-card">
+          <h3>الماركات ({{ brands().length }})</h3>
+          <div class="inline-form">
+            <input
+              type="text"
+              class="touch-input"
+              placeholder="اسم الماركة الجديدة..."
+              [ngModel]="newBrandName()"
+              (ngModelChange)="newBrandName.set($event)"
+            />
+            <button type="button" class="btn-primary" (click)="addBrand()">{{ i18n.t('addBtn') }}</button>
+          </div>
+          <ul class="simple-list">
+            @for (br of brands(); track br.id) {
+              <li>
+                <strong>{{ br.name }}</strong>
+                <span>{{ br.modelsCount }} موديل</span>
+              </li>
+            }
+          </ul>
+        </section>
+
+        <section class="panel-card">
+          <h3>إضافة موديل سيارة</h3>
+          <div class="form-group">
+            <label>الماركة</label>
+            <select class="touch-input" [ngModel]="newModelBrandId()" (ngModelChange)="newModelBrandId.set($event)">
+              @for (br of brands(); track br.id) {
+                <option [value]="br.id">{{ br.name }}</option>
+              }
+            </select>
+          </div>
+          <div class="form-group">
+            <label>الفئة</label>
+            <select class="touch-input" [ngModel]="newModelCategoryId()" (ngModelChange)="newModelCategoryId.set($event)">
+              @for (cat of categories(); track cat.id) {
+                <option [value]="cat.id">{{ cat.name }}</option>
+              }
+            </select>
+          </div>
+          <div class="form-group">
+            <label>اسم الموديل</label>
+            <input
+              type="text"
+              class="touch-input"
+              placeholder="مثال: كامري (Camry)"
+              [ngModel]="newModelName()"
+              (ngModelChange)="newModelName.set($event)"
+            />
+          </div>
+          <button type="button" class="btn-primary" (click)="addModel()">{{ i18n.t('addBtn') }}</button>
+
+          <h4 class="mt-3">الموديلات المسجلة ({{ models().length }})</h4>
+          <ul class="simple-list">
+            @for (m of models(); track m.id) {
+              <li>
+                <span>{{ m.brandName }} — <strong>{{ m.name }}</strong></span>
+                <span class="category-badge">{{ m.categoryName }}</span>
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+    }
+
+    <!-- TAB 3: SERVICES & PRICING -->
+    @if (activeTab() === 'services') {
+      <div class="two-col-grid">
+        <section class="panel-card">
+          <h3>📈 {{ i18n.t('bulkAdjustTitle') }}</h3>
+          <div class="inline-form">
+            <input
+              type="number"
+              class="touch-input"
+              style="max-width: 110px"
+              [ngModel]="bulkPercentage()"
+              (ngModelChange)="bulkPercentage.set($event)"
+            />
+            <select class="touch-input" [ngModel]="bulkCategoryId()" (ngModelChange)="bulkCategoryId.set($event)">
+              <option [ngValue]="null">{{ i18n.t('allCategories') }}</option>
+              @for (cat of categories(); track cat.id) {
+                <option [ngValue]="cat.id">{{ cat.name }}</option>
+              }
+            </select>
+            <button type="button" class="btn-primary" (click)="applyBulkPercentage()">
+              {{ i18n.t('applyBulkBtn') }}
+            </button>
+          </div>
+
+          <hr class="divider" />
+
+          <h3>تعديل أو إضافة تسعيرة فئة</h3>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>الخدمة</label>
+              <select class="touch-input" [ngModel]="editPriceServiceId()" (ngModelChange)="editPriceServiceId.set($event)">
+                @for (s of services(); track s.id) {
+                  <option [value]="s.id">{{ s.name }}</option>
+                }
+              </select>
+            </div>
+            <div class="form-group">
+              <label>الفئة</label>
+              <select class="touch-input" [ngModel]="editPriceCategoryId()" (ngModelChange)="editPriceCategoryId.set($event)">
+                @for (c of categories(); track c.id) {
+                  <option [value]="c.id">{{ c.name }}</option>
+                }
+              </select>
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>السعر ({{ i18n.t('currency') }})</label>
+              <input type="number" class="touch-input" [ngModel]="editPriceAmount()" (ngModelChange)="editPriceAmount.set($event)" />
+            </div>
+            <div class="form-group">
+              <label>المدة ({{ i18n.t('durationMin') }})</label>
+              <input type="number" class="touch-input" [ngModel]="editPriceDuration()" (ngModelChange)="editPriceDuration.set($event)" />
+            </div>
+          </div>
+          <button type="button" class="btn-primary" (click)="saveServicePrice()">{{ i18n.t('saveBtn') }}</button>
+        </section>
+
+        <section class="panel-card">
+          <h3>جدول الأسعار الحالي</h3>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>الخدمة</th>
+                  <th>الفئة</th>
+                  <th>السعر</th>
+                  <th>المدة</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (p of prices(); track p.id) {
+                  <tr>
+                    <td>{{ p.serviceName }}</td>
+                    <td>{{ p.categoryName }}</td>
+                    <td><strong>{{ p.price }} {{ i18n.t('currency') }}</strong></td>
+                    <td>{{ p.durationMinutes }} {{ i18n.t('durationMin') }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    }
+
+    <!-- TAB 4: SETTINGS, WORKING HOURS & HOLIDAYS -->
+    @if (activeTab() === 'settings') {
+      <div class="two-col-grid">
+        <section class="panel-card">
+          <h3>إعدادات الحجز والقدرة الاستيعابية</h3>
+          <div class="form-group">
+            <label>عدد السيارات المتزامنة في نفس الوقت (MaxConcurrentBookings)</label>
+            <input
+              type="number"
+              class="touch-input"
+              [(ngModel)]="shopSettings().maxConcurrentBookings"
+            />
+          </div>
+          <div class="form-group">
+            <label>الفاصل الزمني للمواعيد بالدقائق (SlotIntervalMinutes)</label>
+            <input
+              type="number"
+              class="touch-input"
+              [(ngModel)]="shopSettings().slotIntervalMinutes"
+            />
+          </div>
+          <div class="form-group">
+            <label>أقل عدد ساعات قبل الموعد (MinHoursBeforeBooking)</label>
+            <input
+              type="number"
+              class="touch-input"
+              [(ngModel)]="shopSettings().minHoursBeforeBooking"
+            />
+          </div>
+          <button type="button" class="btn-primary" (click)="saveShopSettings()">
+            {{ i18n.t('saveBtn') }}
+          </button>
+
+          <hr class="divider" />
+
+          <h3>الإجازات الرسمية</h3>
+          <div class="inline-form">
+            <input type="date" class="touch-input" [ngModel]="newHolidayDate()" (ngModelChange)="newHolidayDate.set($event)" />
+            <input
+              type="text"
+              class="touch-input"
+              placeholder="السبب (مثال: إجازة عيد)"
+              [ngModel]="newHolidayReason()"
+              (ngModelChange)="newHolidayReason.set($event)"
+            />
+            <button type="button" class="btn-primary" (click)="addHoliday()">{{ i18n.t('addBtn') }}</button>
+          </div>
+          <ul class="simple-list">
+            @for (h of holidays(); track h.id) {
+              <li>
+                <span>{{ h.date }} — {{ h.reason }}</span>
+                <button type="button" class="btn-sm cancel" (click)="removeHoliday(h.id)">حذف</button>
+              </li>
+            }
+          </ul>
+        </section>
+
+        <section class="panel-card">
+          <h3>مواعيد العمل الأسبوعية</h3>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>اليوم</th>
+                <th>من</th>
+                <th>إلى</th>
+                <th>مغلق؟</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (w of workingHours(); track w.id) {
+                <tr>
+                  <td><strong>{{ w.dayNameAr }}</strong></td>
+                  <td><input type="time" class="touch-input" [(ngModel)]="w.openTime" /></td>
+                  <td><input type="time" class="touch-input" [(ngModel)]="w.closeTime" /></td>
+                  <td><input type="checkbox" [(ngModel)]="w.isClosed" /></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+          <button type="button" class="btn-primary mt-3" (click)="saveWorkingHours()">
+            {{ i18n.t('saveBtn') }}
+          </button>
+        </section>
+      </div>
+    }
+  }
+</div>
+

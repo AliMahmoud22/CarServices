@@ -1,0 +1,276 @@
+/* ==========================================================================
+   AUTOCARE HUB — CUSTOMIZABLE DESIGN SYSTEM
+   Supports:
+   - Light & Dark Modes: [data-theme="dark"] / [data-theme="light"]
+   - 4 Client Brand Palettes: [data-palette="amber" | "cobalt" | "emerald" | "crimson"]
+   - Touch Kiosk Mode scaling: [data-kiosk="true"]
+   - Bilingual RTL (Arabic) & LTR (English)
+   ========================================================================== */
+
+:root {
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  /* Default Brand Palette: Motorsport Amber */
+  --brand-primary: #f59e0b;
+  --brand-primary-hover: #d97706;
+  --brand-on-primary: #0f172a;
+  --brand-soft: rgba(245, 158, 11, 0.14);
+  --brand-glow: rgba(245, 158, 11, 0.28);
+}
+
+/* Client Brand Palettes — Change 1 attribute or CSS variable if client changes mind */
+:root[data-palette='amber'] {
+  --brand-primary: #f59e0b;
+  --brand-primary-hover: #d97706;
+  --brand-on-primary: #0f172a;
+  --brand-soft: rgba(245, 158, 11, 0.14);
+  --brand-glow: rgba(245, 158, 11, 0.28);
+}
+
+:root[data-palette='cobalt'] {
+  --brand-primary: #3b82f6;
+  --brand-primary-hover: #2563eb;
+  --brand-on-primary: #ffffff;
+  --brand-soft: rgba(59, 130, 246, 0.14);
+  --brand-glow: rgba(59, 130, 246, 0.28);
+}
+
+:root[data-palette='emerald'] {
+  --brand-primary: #10b981;
+  --brand-primary-hover: #059669;
+  --brand-on-primary: #052e16;
+  --brand-soft: rgba(16, 185, 129, 0.14);
+  --brand-glow: rgba(16, 185, 129, 0.28);
+}
+
+:root[data-palette='crimson'] {
+  --brand-primary: #ef4444;
+  --brand-primary-hover: #dc2626;
+  --brand-on-primary: #ffffff;
+  --brand-soft: rgba(239, 68, 68, 0.14);
+  --brand-glow: rgba(239, 68, 68, 0.28);
+}
+
+/* Dark Mode (Default) */
+:root,
+:root[data-theme='dark'] {
+  --bg-main: #0b0f19;
+  --bg-surface: #131b2e;
+  --bg-elevated: #1c2742;
+  --text-primary: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #293552;
+  --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* Light Mode */
+:root[data-theme='light'] {
+  --bg-main: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f8fafc;
+  --text-primary: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --shadow-card: 0 10px 25px rgba(15, 23, 42, 0.06);
+}
+
+/* Kiosk Touchscreen Scaling (Larger fonts & touch targets for in-store stand) */
+:root[data-kiosk='true'] {
+  font-size: 18px;
+  user-select: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Cairo', 'Segoe UI', Tahoma, system-ui, -apple-system, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Touch Inputs & Buttons */
+.touch-input {
+  width: 100%;
+  min-height: 50px;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-color);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s ease;
+
+  &:focus {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px var(--brand-glow);
+  }
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.7rem 1.35rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.btn-lg {
+  min-height: 56px;
+  padding: 0.85rem 1.75rem;
+  font-size: 1.1rem;
+}
+
+.btn-primary {
+  background: var(--brand-primary);
+  color: var(--brand-on-primary);
+  box-shadow: 0 4px 14px var(--brand-glow);
+
+  &:hover:not(:disabled) {
+    background: var(--brand-primary-hover);
+  }
+}
+
+.btn-secondary {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-color);
+
+  &:hover:not(:disabled) {
+    border-color: var(--brand-primary);
+  }
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: #052e16;
+}
+
+.accent-text {
+  color: var(--brand-primary);
+}
+
+/* Alerts & Badges */
+.alert-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1.2rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+
+  &.error {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid #ef4444;
+    color: #fca5a5;
+  }
+
+  &.success {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid #10b981;
+    color: #6ee7b7;
+  }
+
+  .close-btn {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+}
+
+:root[data-theme='light'] .alert-banner.error {
+  color: #b91c1c;
+}
+
+:root[data-theme='light'] .alert-banner.success {
+  color: #047857;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+
+  &[data-status='0'] {
+    background: rgba(245, 158, 11, 0.18);
+    color: #f59e0b;
+    border-color: #f59e0b;
+  }
+  &[data-status='1'] {
+    background: rgba(59, 130, 246, 0.18);
+    color: #3b82f6;
+    border-color: #3b82f6;
+  }
+  &[data-status='2'] {
+    background: rgba(16, 185, 129, 0.18);
+    color: #10b981;
+    border-color: #10b981;
+  }
+  &[data-status='3'] {
+    background: rgba(239, 68, 68, 0.18);
+    color: #ef4444;
+    border-color: #ef4444;
+  }
+}
+
+.empty-box,
+.loading-box {
+  padding: 2rem;
+  text-align: center;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-color);
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.animate-in {
+  animation: fadeSlideIn 0.22s ease-out;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

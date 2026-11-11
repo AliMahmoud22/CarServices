@@ -1,0 +1,15 @@
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\bin\Debug\net10.0\CarServices.Application.deps.json
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\bin\Debug\net10.0\CarServices.Application.dll
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\bin\Debug\net10.0\CarServices.Application.pdb
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\bin\Debug\net10.0\CarServices.Domain.dll
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\bin\Debug\net10.0\CarServices.Domain.pdb
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\obj\Debug\net10.0\CarServices.Application.csproj.AssemblyReference.cache
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\obj\Debug\net10.0\CarServices.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\obj\Debug\net10.0\CarServices.Application.AssemblyInfoInputs.cache
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\obj\Debug\net10.0\CarServices.Application.AssemblyInfo.cs
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\obj\Debug\net10.0\CarServices.Application.csproj.CoreCompileInputs.cache
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\obj\Debug\net10.0\CarServi.CB2215B9.Up2Date
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\obj\Debug\net10.0\CarServices.Application.dll
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\obj\Debug\net10.0\refint\CarServices.Application.dll
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\obj\Debug\net10.0\CarServices.Application.pdb
+C:\Users\Ali\source\repos\CarServices\src\CarServices.Application\obj\Debug\net10.0\ref\CarServices.Application.dll
